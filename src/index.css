@@ -72,6 +72,7 @@ input {
   font-weight: 700;
   font-size: 1.8rem;
   cursor: pointer;
+  box-shadow: inset 2px 4px 12.699px 4px rgba(0, 0, 0, 0.26);
 }
 
 .add-form button {
@@ -80,11 +81,9 @@ input {
 }
 
 .list {
-  /* background-color: var(--content); */
   color: var(--header);
   padding: 4rem 0;
   display: flex;
-  /* justify-content: space-between; */
   flex-direction: column;
   gap: 3.2rem;
   align-items: center;
@@ -103,12 +102,12 @@ input {
   list-style: none;
   width: 80%;
   overflow: scroll;
-
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1.2rem;
   justify-content: center;
   align-content: start;
+  padding: 10px 0
 }
 
 .list li {

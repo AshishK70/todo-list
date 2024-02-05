@@ -35,7 +35,7 @@ function Form() {
     e.preventDefault();
     console.log(e);
     // alert("item added");
-    if(!description) return;
+    if (!description) return;
     // when form submitted to get data 
     const newItem = {
       description,
