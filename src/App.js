@@ -1,21 +1,15 @@
 import { useState } from "react";
 
-// const initialItems = [
-//   { id: 1, description: "Passports", quantity: 2, packed: false },
-//   { id: 2, description: "Socks", quantity: 12, packed: false },
-//   { id: 3, description: "Brush", quantity: 6, packed: true },
-//   { id: 6, description: "Charger", quantity: 1, packed: false },
-// ];
-
-
 function App() {
   const [items,setItems] = useState([]);
+
+
   function handleAddItems(item){
     setItems(items=>[...items, item]);
   }
 
   function handleDeleteItem(id){
-    console.log("delete items with this ID : ",id)
+    // console.log("delete items with this ID : ",id)
     setItems(items=>items.filter(item=>item.id !== id));
   }
 
@@ -31,7 +25,7 @@ function App() {
       <Logo />
       <Form onAddItems={handleAddItems} />
       <PackingList items={items} onDeleteItem = {handleDeleteItem} toggleItem={toggleItem}/>
-      <Stats />
+      <Stats items={items}/>
     </div>
   )
 }
@@ -47,9 +41,6 @@ function Logo() {
 function Form( {onAddItems}) {
   const [description, setDescription] = useState('');
   const [quantity, setQuantity] = useState(1);
-  // const [items,setItems] = useState([]);
-
-
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -63,7 +54,7 @@ function Form( {onAddItems}) {
       packed: false,
       id: Date.now(),
     }
-    console.log(newItem);
+    // console.log(newItem);
     onAddItems(newItem)
     // reset the description and quanity 
     setDescription('');
@@ -107,10 +98,23 @@ function Item({ item , onDeleteItem, toggleItem}) {
 }
 
 
-function Stats() {
+function Stats({items}) {
+
+  if(!items.length){
+    return (
+      <p className="stats">
+        <em>Please add items to pack 🌟</em>
+      </p>
+    )}
+
+  const numItems = items.length;
+  // console.log(numItems);
+  const packItem = items.filter((item)=>item.packed).length;
+  // console.log(packItem);
+  const  percentDone = Math.round((packItem / numItems)*100);
   return (
     <div className="stats">
-      <em>You have <span>X</span> items in your list and you've packed <span>Y% </span> of items</em>
+      <em>{percentDone===100?'You got everything! Relax Now 🙃':`You have ${numItems} items in your list and you've packed <span>${packItem}</span> of items (${percentDone}%)`}</em>
     </div>
   )
 }
